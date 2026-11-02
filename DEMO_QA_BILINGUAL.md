@@ -4,10 +4,10 @@
 ## 1. What is your project?
 ## 1. 你们的项目是什么？
 
-**Answer (English):**  
+**Answer (English):**
 It is a single-player Arkanoid game with five stages and upgrade choices.
 
-**回答（中文）：**  
+**回答（中文）：**
 这是一个单人打砖块游戏，有五个关卡和升级选择。
 
 **Code to search / 代码搜索：** `GameConfig.TOTAL_STAGES`, `StageManager`, `UpgradePool`
@@ -34,6 +34,17 @@ Use the **Left** and **Right** arrow keys, or **A** and **D**.
 
 **Code to search / 代码搜索：** `updatePaddle`, `KeyCode.LEFT`, `KeyCode.A`, `moveLeft`, `moveRight`
 
+## 4. How does the ball bounce off the paddle?
+## 4. 球碰到挡板时是怎么反弹的？
+
+**Answer (English):**
+The bounce is deterministic. If the paddle is still, the ball keeps its horizontal speed and reverses its vertical direction. If the paddle is moving, its motion adds a limited sideways bias. The game caps the bounce angle and preserves the ball's speed.
+
+**回答（中文）：**
+反弹方向是确定的。挡板静止时，球的水平速度保持不变，垂直方向反转；挡板移动时，会给球增加有限的横向速度偏移。反弹角度有上限，并且会保持球的速度大小。
+
+**Code to search / 代码搜索：** `bounceOffPaddle`, `paddleBias`, `clampBounceAngle`, `resolvePaddleCollision` in `engine/CollisionResolver.java`; `getVelocityX` in `model/Paddle.java`; `stationaryPaddleReflectsIncomingVelocityExactly` in `CollisionResolverTest.java`
+
 ## 4. How do I launch the ball?
 ## 4. 怎么发射球？
 
@@ -43,7 +54,7 @@ Press **Space**. If the laser upgrade is active, Space fires the lasers instead.
 **回答（中文）：**  
 按 **Space** 发射球。如果激光升级还有效，按 Space 会发射激光。
 
-**Code to search / 代码搜索：** `KeyCode.SPACE`, `launchBall()`, `fireLasers()`, `launchFromPaddle`
+**Code to search / 代码搜索：** `KeyCode.SPACE`, `launchBall()`, `fireLasers()`, `launchFromPaddle` in `GameController.java`, `GameEngine.java`, and `CollisionResolver.java`
 
 ## 5. How many lives does the player start with?
 ## 5. 玩家开始时有几条生命？
