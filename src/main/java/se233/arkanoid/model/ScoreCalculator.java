@@ -9,8 +9,14 @@ import se233.arkanoid.exception.GameException;
 public final class ScoreCalculator {
     private static final Logger LOGGER = LoggerFactory.getLogger(ScoreCalculator.class);
 
+    // ScoreCalculator: Initializes the object for use by the application.
+    // Inputs: none.
+    // Output/behavior: Initializes the object; no value is returned.
     private ScoreCalculator() { }
 
+    // calculate: Creates or calculates the requested value from the supplied inputs.
+    // Inputs: brickScore, scoreMultiplier, comboMultiplier.
+    // Output/behavior: Returns the computed calculate value.
     public static int calculate(int brickScore, double scoreMultiplier, double comboMultiplier) {
         if (brickScore < 0 || !Double.isFinite(scoreMultiplier) || scoreMultiplier < 0.0
                 || !Double.isFinite(comboMultiplier) || comboMultiplier < 0.0) {

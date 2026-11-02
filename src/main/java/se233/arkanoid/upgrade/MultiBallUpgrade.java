@@ -8,9 +8,21 @@ import se233.arkanoid.model.Ball;
 
 public final class MultiBallUpgrade implements Upgrade {
     private static final Logger LOGGER = LoggerFactory.getLogger(MultiBallUpgrade.class);
+    // getName: Returns the current name.
+    // Inputs: none.
+    // Output/behavior: Returns the computed get name value.
     public String getName() { return "Multiball"; }
+    // getDescription: Returns the current description.
+    // Inputs: none.
+    // Output/behavior: Returns the computed get description value.
     public String getDescription() { return "Double every ball currently in play."; }
+    // getType: Returns the current type.
+    // Inputs: none.
+    // Output/behavior: Returns the computed get type value.
     public UpgradeType getType() { return UpgradeType.MULTI_BALL; }
+    // apply: Performs the apply operation.
+    // Inputs: state.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     public void apply(GameState state) {
         // Demo: duplicate the original ball set and preserve each ball's existing relic properties.
         int existing = state.getBalls().size();

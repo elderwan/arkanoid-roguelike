@@ -11,6 +11,9 @@ import org.slf4j.LoggerFactory;
 
 public final class MainMenuView {
     private static final Logger LOGGER = LoggerFactory.getLogger(MainMenuView.class);
+    // render: Renders the associated visual element using the supplied graphics context.
+    // Inputs: gc, width, height.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     public void render(GraphicsContext gc, double width, double height) {
         gc.setFill(Color.rgb(12, 19, 34));
         gc.fillRect(0, 0, width, height);
@@ -35,9 +38,18 @@ public final class MainMenuView {
         gc.fillText("Move: ← → or A / D     Launch / fire: SPACE     Pause: P", width / 2, 590);
     }
 
+    // isStartClick: Reports whether start click is true.
+    // Inputs: x, y.
+    // Output/behavior: Returns a boolean result.
     public boolean isStartClick(double x, double y) { return x >= 285 && x <= 515 && y >= 370 && y <= 424; }
+    // isQuitClick: Reports whether quit click is true.
+    // Inputs: x, y.
+    // Output/behavior: Returns a boolean result.
     public boolean isQuitClick(double x, double y) { return x >= 285 && x <= 515 && y >= 444 && y <= 492; }
 
+    // button: Executes the button operation.
+    // Inputs: gc, x, y, w, h, text, primary.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     private void button(GraphicsContext gc, double x, double y, double w, double h, String text, boolean primary) {
         gc.setFill(primary ? Color.rgb(94, 226, 220) : Color.rgb(28, 40, 62));
         gc.fillRoundRect(x, y, w, h, 5, 5);

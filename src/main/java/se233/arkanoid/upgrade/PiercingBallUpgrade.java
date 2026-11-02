@@ -7,9 +7,21 @@ import se233.arkanoid.engine.GameState;
 
 public final class PiercingBallUpgrade implements Upgrade {
     private static final Logger LOGGER = LoggerFactory.getLogger(PiercingBallUpgrade.class);
+    // getName: Returns the current name.
+    // Inputs: none.
+    // Output/behavior: Returns the computed get name value.
     public String getName() { return "Phase shot"; }
+    // getDescription: Returns the current description.
+    // Inputs: none.
+    // Output/behavior: Returns the computed get description value.
     public String getDescription() { return "Balls pass through bricks instead of bouncing."; }
+    // getType: Returns the current type.
+    // Inputs: none.
+    // Output/behavior: Returns the computed get type value.
     public UpgradeType getType() { return UpgradeType.PIERCING_BALL; }
+    // apply: Performs the apply operation.
+    // Inputs: state.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     public void apply(GameState state) {
         state.getBalls().forEach(ball -> ball.setPiercing(true));
         state.getActiveUpgrades().add(this);

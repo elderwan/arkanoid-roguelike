@@ -19,6 +19,9 @@ public final class CollisionResolver {
 
     public record BrickImpact(Brick brick, HitResult result) { }
 
+    // resolveWallCollision: Resolves the requested collision or interaction and reports whether it was handled.
+    // Inputs: ball.
+    // Output/behavior: Returns a boolean result.
     public boolean resolveWallCollision(Ball ball) {
         boolean bounced = false;
         if (ball.getX() - ball.getRadius() < 0.0) {
@@ -42,10 +45,16 @@ public final class CollisionResolver {
         return bounced;
     }
 
+    // resolvePaddleCollision: Resolves the requested collision or interaction and reports whether it was handled.
+    // Inputs: ball, paddle.
+    // Output/behavior: Returns a boolean result.
     public boolean resolvePaddleCollision(Ball ball, Paddle paddle) {
         return resolvePaddleCollision(ball, paddle, ball.getY());
     }
 
+    // resolvePaddleCollision: Resolves the requested collision or interaction and reports whether it was handled.
+    // Inputs: ball, paddle, previousY.
+    // Output/behavior: Returns a boolean result.
     public boolean resolvePaddleCollision(Ball ball, Paddle paddle, double previousY) {
         // Demo: only accept a downward ball that reaches the paddle's top from above.
         boolean sweptAcrossTop = previousY <= paddle.getY()
@@ -61,6 +70,9 @@ public final class CollisionResolver {
         return true;
     }
 
+    // bounceOffPaddle: Executes the bounce off paddle operation.
+    // Inputs: ball, paddle.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     public static void bounceOffPaddle(Ball ball, Paddle paddle) {
         double incomingVx = ball.getVx();
         double incomingVy = ball.getVy();
@@ -91,6 +103,9 @@ public final class CollisionResolver {
                 paddleVx, incomingVx, incomingVy, outgoingVx, outgoingVy, angleDegrees);
     }
 
+    // launchFromPaddle: Executes the launch from paddle operation.
+    // Inputs: ball, paddle, launchSpeed.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     public static void launchFromPaddle(Ball ball, Paddle paddle, double launchSpeed) {
         if (!Double.isFinite(launchSpeed) || launchSpeed <= 0.0) {
             throw new GameException(ErrorCode.INVALID_ARGUMENT, "Ball launch speed must be positive.");
@@ -111,6 +126,9 @@ public final class CollisionResolver {
         LOGGER.debug("Paddle launch paddleVx={} outgoing=({}, {})", paddleVx, outgoingVx, outgoingVy);
     }
 
+    // paddleBias: Executes the paddle bias operation.
+    // Inputs: paddleVelocityX.
+    // Output/behavior: Returns the computed paddle bias value.
     static double paddleBias(double paddleVelocityX) {
         if (!Double.isFinite(paddleVelocityX)) {
             throw new GameException(ErrorCode.INVALID_ARGUMENT, "Paddle velocity must be finite.");
@@ -121,6 +139,9 @@ public final class CollisionResolver {
                 Math.min(GameConfig.MAX_PADDLE_BIAS_SPEED, bias));
     }
 
+    // clampBounceAngle: Executes the clamp bounce angle operation.
+    // Inputs: vx, vy.
+    // Output/behavior: Returns the computed clamp bounce angle value.
     private static double clampBounceAngle(double vx, double vy) {
         double maxHorizontal = Math.abs(vy) * Math.tan(Math.toRadians(GameConfig.MAX_BOUNCE_ANGLE_DEG));
         if (Math.abs(vx) > maxHorizontal) {
@@ -129,6 +150,9 @@ public final class CollisionResolver {
         return vx;
     }
 
+    // resolveBrickCollisions: Resolves the requested collision or interaction and reports whether it was handled.
+    // Inputs: ball, bricks.
+    // Output/behavior: Returns the computed resolve brick collisions value.
     public List<BrickImpact> resolveBrickCollisions(Ball ball, List<Brick> bricks) {
         List<BrickImpact> impacts = new ArrayList<>();
         for (Brick brick : bricks) {
@@ -149,6 +173,9 @@ public final class CollisionResolver {
         return impacts;
     }
 
+    // circleIntersectsBrick: Executes the circle intersects brick operation.
+    // Inputs: ball, brick.
+    // Output/behavior: Returns a boolean result.
     private boolean circleIntersectsBrick(Ball ball, Brick brick) {
         double nearestX = Math.max(brick.boundsLeft(), Math.min(ball.getX(), brick.boundsRight()));
         double nearestY = Math.max(brick.boundsTop(), Math.min(ball.getY(), brick.boundsBottom()));

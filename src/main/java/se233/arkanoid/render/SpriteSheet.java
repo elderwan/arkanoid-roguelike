@@ -15,6 +15,9 @@ public final class SpriteSheet {
     private static final Logger LOGGER = LoggerFactory.getLogger(SpriteSheet.class);
     private final Image image;
 
+    // SpriteSheet: Initializes the object for use by the application.
+    // Inputs: none.
+    // Output/behavior: Initializes the object; no value is returned.
     public SpriteSheet() {
         InputStream resource = SpriteSheet.class.getResourceAsStream("/sprites/arkanoid.png");
         // Demo: missing or invalid artwork falls back to the same procedural draw methods below.
@@ -33,8 +36,14 @@ public final class SpriteSheet {
         }
     }
 
+    // hasSpriteSheet: Reports whether sprite sheet is true.
+    // Inputs: none.
+    // Output/behavior: Returns a boolean result.
     public boolean hasSpriteSheet() { return image != null; }
 
+    // drawBall: Renders the associated visual element using the supplied graphics context.
+    // Inputs: gc, x, y, radius, state, animationTime.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     public void drawBall(GraphicsContext gc, double x, double y, double radius, BallState state, double animationTime) {
         if (image != null) {
             double cellW = image.getWidth() / 4.0;
@@ -53,6 +62,9 @@ public final class SpriteSheet {
         gc.fillOval(x - radius * 1.8, y - radius * 1.8, radius * 3.6, radius * 3.6);
     }
 
+    // drawPaddle: Renders the associated visual element using the supplied graphics context.
+    // Inputs: gc, x, y, width, height, state, animationTime.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     public void drawPaddle(GraphicsContext gc, double x, double y, double width, double height,
                            PaddleState state, double animationTime) {
         if (image != null) {

@@ -12,6 +12,9 @@ public final class ArkanoidApp extends Application {
     private static final Logger LOGGER = LoggerFactory.getLogger(ArkanoidApp.class);
 
     @Override
+    // start: Executes the start operation.
+    // Inputs: primaryStage.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     public void start(Stage primaryStage) {
         // Demo: uncaught GameExceptions on any thread are routed to the centralized handler.
         Thread.setDefaultUncaughtExceptionHandler((thread, throwable) -> {

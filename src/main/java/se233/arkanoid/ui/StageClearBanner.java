@@ -11,6 +11,9 @@ import org.slf4j.LoggerFactory;
 
 public final class StageClearBanner {
     private static final Logger LOGGER = LoggerFactory.getLogger(StageClearBanner.class);
+    // render: Renders the associated visual element using the supplied graphics context.
+    // Inputs: gc, stageNumber.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     public void render(GraphicsContext gc, int stageNumber) {
         gc.setTextAlign(TextAlignment.CENTER);
         gc.setTextBaseline(VPos.CENTER);

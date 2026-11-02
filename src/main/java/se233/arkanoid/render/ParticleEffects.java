@@ -19,6 +19,9 @@ public final class ParticleEffects {
     private double flashY;
     private double flashRemaining;
 
+    // spawnBrickHit: Executes the spawn brick hit operation.
+    // Inputs: x, y.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     public void spawnBrickHit(double x, double y) {
         // Demo: a non-lethal hit produces a short flash and a small set of sparks.
         flashX = x;
@@ -28,6 +31,9 @@ public final class ParticleEffects {
         LOGGER.debug("Spawned brick hit sparks at {}, {}", x, y);
     }
 
+    // spawnBrickDestroyed: Executes the spawn brick destroyed operation.
+    // Inputs: x, y.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     public void spawnBrickDestroyed(double x, double y) {
         // Demo: destruction uses a larger, colored particle burst to distinguish it from damage.
         Color[] palette = {Color.rgb(94, 226, 220), Color.rgb(226, 183, 91), Color.rgb(255, 117, 117)};
@@ -35,6 +41,9 @@ public final class ParticleEffects {
         LOGGER.debug("Spawned brick destruction burst at {}, {}", x, y);
     }
 
+    // update: Advances the associated state using the elapsed time.
+    // Inputs: dt.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     public void update(double dt) {
         flashRemaining = Math.max(0.0, flashRemaining - dt);
         Iterator<Particle> iterator = particles.iterator();
@@ -48,6 +57,9 @@ public final class ParticleEffects {
         }
     }
 
+    // render: Renders the associated visual element using the supplied graphics context.
+    // Inputs: gc.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     public void render(GraphicsContext gc) {
         if (flashRemaining > 0.0) {
             gc.setGlobalAlpha(flashRemaining / 0.12);
@@ -64,6 +76,9 @@ public final class ParticleEffects {
         gc.setGlobalAlpha(1.0);
     }
 
+    // addParticle: Adds the supplied particle to the current state.
+    // Inputs: x, y, color, lifetime, speed.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     private void addParticle(double x, double y, Color color, double lifetime, double speed) {
         double angle = random.nextDouble() * Math.PI * 2.0;
         double velocity = speed * (0.45 + random.nextDouble() * 0.55);
@@ -80,6 +95,9 @@ public final class ParticleEffects {
         private final double lifetime;
         private final Color color;
         private final double size;
+        // Particle: Initializes the object for use by the application.
+        // Inputs: x, y, vx, vy, lifetime, color, size.
+        // Output/behavior: Initializes the object; no value is returned.
         private Particle(double x, double y, double vx, double vy, double lifetime, Color color, double size) {
             this.x = x; this.y = y; this.vx = vx; this.vy = vy; this.remaining = lifetime;
             this.lifetime = lifetime; this.color = color; this.size = size;

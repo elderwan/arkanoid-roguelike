@@ -19,6 +19,9 @@ public final class HudView {
     private static final Logger LOGGER = LoggerFactory.getLogger(HudView.class);
     private final List<Popup> popups = new ArrayList<>();
 
+    // render: Renders the associated visual element using the supplied graphics context.
+    // Inputs: gc, state, dt.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     public void render(GraphicsContext gc, GameState state, double dt) {
         // Demo: consume new score events once, then animate their floating point labels by elapsed time.
         for (ScoreEvent event : state.drainScoreEvents()) popups.add(new Popup(event));
@@ -70,6 +73,9 @@ public final class HudView {
     private static final class Popup {
         private final ScoreEvent event;
         private double remaining = 1.0;
+        // Popup: Initializes the object for use by the application.
+        // Inputs: event.
+        // Output/behavior: Initializes the object; no value is returned.
         private Popup(ScoreEvent event) { this.event = event; }
     }
 }

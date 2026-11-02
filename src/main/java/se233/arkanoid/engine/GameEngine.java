@@ -20,17 +20,32 @@ public final class GameEngine {
     private final StageManager stageManager;
     private boolean stageComplete;
 
+    // GameEngine: Initializes the object for use by the application.
+    // Inputs: none.
+    // Output/behavior: Initializes the object; no value is returned.
     public GameEngine() { this(new GameState(), new CollisionResolver(), new StageManager()); }
 
+    // GameEngine: Initializes the object for use by the application.
+    // Inputs: state, collisionResolver, stageManager.
+    // Output/behavior: Initializes the object; no value is returned.
     public GameEngine(GameState state, CollisionResolver collisionResolver, StageManager stageManager) {
         this.state = state;
         this.collisionResolver = collisionResolver;
         this.stageManager = stageManager;
     }
 
+    // getState: Returns the current state.
+    // Inputs: none.
+    // Output/behavior: Returns the computed get state value.
     public GameState getState() { return state; }
+    // isStageComplete: Reports whether stage complete is true.
+    // Inputs: none.
+    // Output/behavior: Returns a boolean result.
     public boolean isStageComplete() { return stageComplete; }
 
+    // startRun: Performs the start run operation.
+    // Inputs: none.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     public void startRun() {
         // Demo: reset the run, then let StageManager create the first playable stage.
         state.resetRun();
@@ -39,6 +54,9 @@ public final class GameEngine {
         LOGGER.info("New game started");
     }
 
+    // launchBall: Performs the launch ball operation.
+    // Inputs: none.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     public void launchBall() {
         if (state.isGameOver() || state.isVictory() || state.isBallLaunched()) return;
         for (Ball ball : state.getBalls()) {
@@ -51,6 +69,9 @@ public final class GameEngine {
         LOGGER.info("Player launched the ball");
     }
 
+    // fireLasers: Performs the fire lasers operation.
+    // Inputs: none.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     public void fireLasers() {
         if (!state.isLaserActive() || state.getLaserCooldownRemaining() > 0.0) return;
         double y = state.getPaddle().getY();
@@ -61,6 +82,9 @@ public final class GameEngine {
         LOGGER.debug("Player fired a dual-laser volley");
     }
 
+    // update: Advances the associated state using the elapsed time.
+    // Inputs: dt.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     public void update(double dt) {
         if (!Double.isFinite(dt) || dt < 0.0) {
             throw new GameException(ErrorCode.INVALID_ARGUMENT, "Time delta must be finite and non-negative.");
@@ -84,6 +108,9 @@ public final class GameEngine {
         }
     }
 
+    // updateBalls: Advances the associated state using the elapsed time.
+    // Inputs: dt.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     private void updateBalls(double dt) {
         Iterator<Ball> iterator = state.getBalls().iterator();
         while (iterator.hasNext()) {
@@ -126,6 +153,9 @@ public final class GameEngine {
         }
     }
 
+    // updateLasers: Advances the associated state using the elapsed time.
+    // Inputs: dt.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     private void updateLasers(double dt) {
         for (Laser laser : state.getLasers()) laser.update(dt);
         Iterator<Laser> iterator = state.getLasers().iterator();
@@ -159,6 +189,9 @@ public final class GameEngine {
         }
     }
 
+    // advanceStage: Performs the advance stage operation.
+    // Inputs: none.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     public void advanceStage() {
         if (!stageComplete) return;
         stageComplete = false;

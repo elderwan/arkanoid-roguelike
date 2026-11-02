@@ -17,8 +17,14 @@ public final class UpgradePool {
     private final Random random;
     private final List<Upgrade> upgrades;
 
+    // UpgradePool: Initializes the object for use by the application.
+    // Inputs: none.
+    // Output/behavior: Initializes the object; no value is returned.
     public UpgradePool() { this(new Random()); }
 
+    // UpgradePool: Initializes the object for use by the application.
+    // Inputs: random.
+    // Output/behavior: Initializes the object; no value is returned.
     public UpgradePool(Random random) {
         this.random = random;
         this.upgrades = List.of(new MultiBallUpgrade(), new PiercingBallUpgrade(), new LaserUpgrade(),
@@ -26,6 +32,9 @@ public final class UpgradePool {
                 new ExtraLifeUpgrade(), new ScoreBoostUpgrade(), new GlassCannonUpgrade(), new FrenzyUpgrade());
     }
 
+    // getChoices: Returns the current choices.
+    // Inputs: none.
+    // Output/behavior: Returns the computed get choices value.
     public List<Upgrade> getChoices() {
         List<Upgrade> shuffled = new ArrayList<>(upgrades);
         // Demo: shuffle a copy so the master pool is unchanged; taking three gives distinct choices.
@@ -35,6 +44,9 @@ public final class UpgradePool {
         return choices;
     }
 
+    // getChoices: Returns the current choices.
+    // Inputs: count.
+    // Output/behavior: Returns the computed get choices value.
     public List<Upgrade> getChoices(int count) {
         if (count < 1 || count > upgrades.size()) {
             throw new GameException(ErrorCode.INVALID_ARGUMENT, "Upgrade choice count is out of range.");

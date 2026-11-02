@@ -9,8 +9,14 @@ public final class GameExceptionHandler {
 
     public enum RecoveryAction { SHOW_ERROR, RETURN_TO_MENU, USE_PROCEDURAL_ASSETS, SKIP_UPGRADE }
 
+    // GameExceptionHandler: Initializes the object for use by the application.
+    // Inputs: none.
+    // Output/behavior: Initializes the object; no value is returned.
     private GameExceptionHandler() { }
 
+    // handle: Processes the supplied event or input and updates the related state.
+    // Inputs: exception.
+    // Output/behavior: Returns the computed handle value.
     public static RecoveryAction handle(GameException exception) {
         // Demo: this is the single policy point mapping each game error code to recovery.
         LOGGER.error("Handled game error [{}]: {}", exception.getErrorCode(), exception.getMessage(), exception);

@@ -13,6 +13,9 @@ import se233.arkanoid.upgrade.UpgradeType;
 public final class StageManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(StageManager.class);
 
+    // loadStage: Executes the load stage operation.
+    // Inputs: state, stageNumber.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     public void loadStage(GameState state, int stageNumber) {
         if (stageNumber < 1 || stageNumber > GameConfig.TOTAL_STAGES) {
             throw new GameException(ErrorCode.INVALID_STAGE, "Cannot load stage " + stageNumber);
@@ -43,6 +46,9 @@ public final class StageManager {
         LOGGER.info("Stage {} started; ball speed multiplier is {}", stageNumber, speedMultiplier(stageNumber));
     }
 
+    // advance: Executes the advance operation.
+    // Inputs: state.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     public void advance(GameState state) {
         int nextStage = state.getStageNumber() + 1;
         if (nextStage > GameConfig.TOTAL_STAGES) {
@@ -54,6 +60,9 @@ public final class StageManager {
         loadStage(state, nextStage);
     }
 
+    // speedMultiplier: Executes the speed multiplier operation.
+    // Inputs: stageNumber.
+    // Output/behavior: Returns the computed speed multiplier value.
     public double speedMultiplier(int stageNumber) {
         if (stageNumber < 1 || stageNumber > GameConfig.TOTAL_STAGES) {
             throw new GameException(ErrorCode.INVALID_STAGE, "Cannot calculate speed for stage " + stageNumber);

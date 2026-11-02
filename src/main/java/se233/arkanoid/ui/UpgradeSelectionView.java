@@ -20,11 +20,17 @@ public final class UpgradeSelectionView {
     private final Consumer<Upgrade> onChoose;
     private boolean chosen;
 
+    // UpgradeSelectionView: Initializes the object for use by the application.
+    // Inputs: choices, onChoose.
+    // Output/behavior: Initializes the object; no value is returned.
     public UpgradeSelectionView(List<Upgrade> choices, Consumer<Upgrade> onChoose) {
         this.choices = List.copyOf(choices);
         this.onChoose = onChoose;
     }
 
+    // render: Renders the associated visual element using the supplied graphics context.
+    // Inputs: gc, width, height, clearedStage.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     public void render(GraphicsContext gc, double width, double height, int clearedStage) {
         gc.setFill(Color.rgb(8, 13, 24, 0.96));
         gc.fillRect(0, 0, width, height);
@@ -73,6 +79,9 @@ public final class UpgradeSelectionView {
         gc.fillText("Press 1, 2, or 3 (or click a relic)", width / 2, 570);
     }
 
+    // handleKey: Processes the supplied event or input and updates the related state.
+    // Inputs: key.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     public void handleKey(KeyCode key) {
         // Demo: number keys map directly to the three displayed relic choices.
         if (key == KeyCode.DIGIT1 || key == KeyCode.NUMPAD1) choose(0);
@@ -80,6 +89,9 @@ public final class UpgradeSelectionView {
         else if (key == KeyCode.DIGIT3 || key == KeyCode.NUMPAD3) choose(2);
     }
 
+    // handleClick: Processes the supplied event or input and updates the related state.
+    // Inputs: x, y, width.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     public void handleClick(double x, double y, double width) {
         if (y < 290 || y > 510) return;
         double cardWidth = 218;
@@ -91,6 +103,9 @@ public final class UpgradeSelectionView {
         }
     }
 
+    // choose: Performs the related controller operation and updates the visible application state.
+    // Inputs: index.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     private void choose(int index) {
         if (chosen || index < 0 || index >= choices.size()) return;
         // Demo: guard the callback so a double click or repeated key cannot apply two upgrades.
@@ -100,6 +115,9 @@ public final class UpgradeSelectionView {
         onChoose.accept(upgrade);
     }
 
+    // wrap: Executes the wrap operation.
+    // Inputs: gc, text, centerX, y, maxCharacters.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     private void wrap(GraphicsContext gc, String text, double centerX, double y, int maxCharacters) {
         String[] words = text.split(" ");
         String line = "";

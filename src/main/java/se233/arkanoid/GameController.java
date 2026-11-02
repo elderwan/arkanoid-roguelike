@@ -50,6 +50,9 @@ public final class GameController {
     private String errorMessage = "";
     private double errorRemaining;
 
+    // GameController: Initializes the object for use by the application.
+    // Inputs: stage.
+    // Output/behavior: Initializes the object; no value is returned.
     public GameController(Stage stage) {
         this.stage = stage;
         canvas.setFocusTraversable(true);
@@ -63,6 +66,9 @@ public final class GameController {
         canvas.setOnMouseClicked(event -> onMouseClicked(event.getX(), event.getY()));
         timer = new AnimationTimer() {
             @Override
+            // handle: Processes the supplied event or input and updates the related state.
+            // Inputs: now.
+            // Output/behavior: Updates state or performs side effects; no value is returned.
             public void handle(long now) {
                 // Demo: all per-frame GameExceptions enter the same recovery handler here.
                 try {
@@ -76,6 +82,9 @@ public final class GameController {
         canvas.requestFocus();
     }
 
+    // tick: Performs the related controller operation and updates the visible application state.
+    // Inputs: now.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     private void tick(long now) {
         // Demo: cap frame delta to keep physics stable after a slow or interrupted frame.
         double dt = previousFrame == 0 ? 0.0 : Math.min(0.05, (now - previousFrame) / 1_000_000_000.0);
@@ -100,6 +109,9 @@ public final class GameController {
         render(dt);
     }
 
+    // render: Renders the associated visual element using the supplied graphics context.
+    // Inputs: dt.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     private void render(double dt) {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         switch (screen) {
@@ -126,6 +138,9 @@ public final class GameController {
         if (screen == Screen.MENU) drawError(gc);
     }
 
+    // updatePaddle: Advances the associated state using the elapsed time.
+    // Inputs: dt.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     private void updatePaddle(double dt) {
         // Demo: update paddle velocity from actual movement, or explicitly clear it when idle.
         if (dt <= 0.0) {
@@ -139,6 +154,9 @@ public final class GameController {
         else engine.getState().getPaddle().stop();
     }
 
+    // onKeyPressed: Processes the supplied event or input and updates the related state.
+    // Inputs: key.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     private void onKeyPressed(KeyCode key) {
         if (screen == Screen.UPGRADE_SELECTION) {
             upgradeView.handleKey(key);
@@ -168,6 +186,9 @@ public final class GameController {
         }
     }
 
+    // onKeyReleased: Processes the supplied event or input and updates the related state.
+    // Inputs: key.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     private void onKeyReleased(KeyCode key) {
         heldKeys.remove(key);
         if (screen == Screen.PLAYING && !heldKeys.contains(KeyCode.LEFT) && !heldKeys.contains(KeyCode.RIGHT)
@@ -176,6 +197,9 @@ public final class GameController {
         }
     }
 
+    // onMouseClicked: Processes the supplied event or input and updates the related state.
+    // Inputs: x, y.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     private void onMouseClicked(double x, double y) {
         switch (screen) {
             case MENU -> {
@@ -195,6 +219,9 @@ public final class GameController {
         }
     }
 
+    // startRun: Performs the start run operation.
+    // Inputs: none.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     private void startRun() {
         try {
             engine.startRun();
@@ -207,12 +234,18 @@ public final class GameController {
         }
     }
 
+    // openUpgradeSelection: Performs the related controller operation and updates the visible application state.
+    // Inputs: none.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     private void openUpgradeSelection() {
         var choices = upgradePool.getChoices();
         upgradeView = new UpgradeSelectionView(choices, this::chooseUpgrade);
         screen = Screen.UPGRADE_SELECTION;
     }
 
+    // chooseUpgrade: Performs the related controller operation and updates the visible application state.
+    // Inputs: upgrade.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     private void chooseUpgrade(Upgrade upgrade) {
         try {
             upgrade.apply(engine.getState());
@@ -228,6 +261,9 @@ public final class GameController {
         }
     }
 
+    // recover: Performs the related controller operation and updates the visible application state.
+    // Inputs: exception.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     private void recover(GameException exception) {
         GameExceptionHandler.RecoveryAction action = GameExceptionHandler.handle(exception);
         errorMessage = exception.getMessage();
@@ -242,8 +278,14 @@ public final class GameController {
         LOGGER.warn("Recovery action selected: {}", action);
     }
 
+    // visibleError: Performs the related controller operation and updates the visible application state.
+    // Inputs: none.
+    // Output/behavior: Returns the computed visible error value.
     private String visibleError() { return errorRemaining > 0.0 ? errorMessage : ""; }
 
+    // drawError: Renders the associated visual element using the supplied graphics context.
+    // Inputs: gc.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     private void drawError(GraphicsContext gc) {
         if (errorRemaining <= 0.0) return;
         gc.setFill(javafx.scene.paint.Color.rgb(130, 28, 38, 0.94));

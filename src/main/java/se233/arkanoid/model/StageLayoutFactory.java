@@ -15,8 +15,14 @@ public final class StageLayoutFactory {
     private static final double GAP_X = 0.0;
     private static final double GAP_Y = 9.0;
 
+    // StageLayoutFactory: Initializes the object for use by the application.
+    // Inputs: none.
+    // Output/behavior: Initializes the object; no value is returned.
     private StageLayoutFactory() { }
 
+    // create: Creates or calculates the requested value from the supplied inputs.
+    // Inputs: stageNumber.
+    // Output/behavior: Returns the computed create value.
     public static List<Brick> create(int stageNumber) {
         if (stageNumber < 1 || stageNumber > GameConfig.TOTAL_STAGES) {
             throw new GameException(ErrorCode.INVALID_STAGE, "Stage must be between 1 and 5.");
@@ -68,6 +74,9 @@ public final class StageLayoutFactory {
         return bricks;
     }
 
+    // fillRectangle: Executes the fill rectangle operation.
+    // Inputs: bricks, rows, creator.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     private static void fillRectangle(List<Brick> bricks, int rows, BrickCreator creator) {
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < GameConfig.BRICK_COLUMNS; col++) {
@@ -76,7 +85,19 @@ public final class StageLayoutFactory {
         }
     }
 
+    // x: Executes the x operation.
+    // Inputs: col.
+    // Output/behavior: Returns the computed x value.
     private static double x(int col) { return GameConfig.BRICK_LEFT_MARGIN + col * (GameConfig.BRICK_WIDTH + GAP_X); }
+    // y: Executes the y operation.
+    // Inputs: row.
+    // Output/behavior: Returns the computed y value.
     private static double y(int row) { return GameConfig.BRICK_TOP_MARGIN + row * (GameConfig.BRICK_HEIGHT + GAP_Y); }
-    @FunctionalInterface private interface BrickCreator { Brick create(int row, int col); }
+    @FunctionalInterface
+    private interface BrickCreator {
+        // create: Builds the brick for one row and column in a stage layout.
+        // Inputs: row, col.
+        // Output/behavior: Returns the brick to place in the generated layout.
+        Brick create(int row, int col);
+    }
 }

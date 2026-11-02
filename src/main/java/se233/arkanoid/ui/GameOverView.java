@@ -11,6 +11,9 @@ import org.slf4j.LoggerFactory;
 
 public final class GameOverView {
     private static final Logger LOGGER = LoggerFactory.getLogger(GameOverView.class);
+    // render: Renders the associated visual element using the supplied graphics context.
+    // Inputs: gc, width, height, score.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     public void render(GraphicsContext gc, double width, double height, int score) {
         gc.setFill(Color.rgb(9, 14, 25, 0.94));
         gc.fillRect(0, 0, width, height);
@@ -24,11 +27,23 @@ public final class GameOverView {
         gc.fillText("Final score  " + score, width / 2, 335);
         buttons(gc, width, "RESTART", "MENU");
     }
+    // isRestartClick: Reports whether restart click is true.
+    // Inputs: x, y.
+    // Output/behavior: Returns a boolean result.
     public boolean isRestartClick(double x, double y) { return inside(x, y, 275, 420); }
+    // isMenuClick: Reports whether menu click is true.
+    // Inputs: x, y.
+    // Output/behavior: Returns a boolean result.
     public boolean isMenuClick(double x, double y) { return inside(x, y, 435, 580); }
+    // inside: Executes the inside operation.
+    // Inputs: x, y, left, right.
+    // Output/behavior: Returns a boolean result.
     private static boolean inside(double x, double y, double left, double right) {
         return x >= left && x <= right && y >= 400 && y <= 455;
     }
+    // buttons: Executes the buttons operation.
+    // Inputs: gc, width, first, second.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     private void buttons(GraphicsContext gc, double width, String first, String second) {
         gc.setFont(Font.font("Monospaced", 15));
         gc.setTextBaseline(VPos.CENTER);

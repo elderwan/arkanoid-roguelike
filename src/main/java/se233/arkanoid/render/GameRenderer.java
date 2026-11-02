@@ -20,6 +20,9 @@ public final class GameRenderer {
     private final ParticleEffects particles = new ParticleEffects();
     private final HudView hud = new HudView();
 
+    // render: Renders the associated visual element using the supplied graphics context.
+    // Inputs: gc, state, dt, paused, errorMessage.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     public void render(GraphicsContext gc, GameState state, double dt, boolean paused, String errorMessage) {
         drawBackground(gc);
         for (BrickEffect effect : state.drainBrickEffects()) {
@@ -51,6 +54,9 @@ public final class GameRenderer {
         }
     }
 
+    // drawBackground: Renders the associated visual element using the supplied graphics context.
+    // Inputs: gc.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     private void drawBackground(GraphicsContext gc) {
         gc.setFill(Color.rgb(12, 19, 34));
         gc.fillRect(0, 0, GameConfig.FIELD_WIDTH, GameConfig.FIELD_HEIGHT);
@@ -61,6 +67,9 @@ public final class GameRenderer {
         gc.strokeLine(0, GameConfig.FIELD_HEIGHT - 2, 800, GameConfig.FIELD_HEIGHT - 2);
     }
 
+    // drawBrick: Renders the associated visual element using the supplied graphics context.
+    // Inputs: gc, brick.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     private void drawBrick(GraphicsContext gc, Brick brick) {
         if (brick.isDestroyed()) return;
         Color base = switch (brick.getType()) {
@@ -81,6 +90,9 @@ public final class GameRenderer {
         }
     }
 
+    // drawLaser: Renders the associated visual element using the supplied graphics context.
+    // Inputs: gc, laser.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     private void drawLaser(GraphicsContext gc, Laser laser) {
         gc.setStroke(Color.rgb(255, 117, 117));
         gc.setLineWidth(4);
@@ -90,6 +102,9 @@ public final class GameRenderer {
         gc.strokeLine(laser.getX(), laser.getY() - 12, laser.getX(), laser.getY() + 2);
     }
 
+    // overlay: Executes the overlay operation.
+    // Inputs: gc, title, subtitle.
+    // Output/behavior: Updates state or performs side effects; no value is returned.
     private void overlay(GraphicsContext gc, String title, String subtitle) {
         gc.setFill(Color.rgb(5, 8, 15, 0.72));
         gc.fillRect(0, 54, 800, 666);

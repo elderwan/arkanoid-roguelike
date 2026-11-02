@@ -27,5 +27,8 @@ public final class GameConfig {
     public static final double LASER_COOLDOWN_SECONDS = 0.35;
     public static final double LASER_SPEED = 700.0;
 
+    // GameConfig: Initializes the object for use by the application.
+    // Inputs: none.
+    // Output/behavior: Initializes the object; no value is returned.
     private GameConfig() { }
 }
